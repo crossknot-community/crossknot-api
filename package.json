@@ -1,27 +1,53 @@
 {
   "name": "crossknot-api",
   "version": "0.0.1",
-  "type": "module",
-  "description": "crossknot's private api to fetch data ",
-  "main": "index.js",
+  "description": "API for crossknot community backend service ",
+  "main": "./dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/crossknot-community/crossknot-api"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "lint": "./node_modules/.bin/eslint ."
+    "build": "tsc",
+    "start": " npm run build && node -r ./prod-paths.ts ./dist/index.js NODE_ENV=production",
+    "dev:docker": "docker-compose -f ./docker/docker-compose.yaml down && docker-compose -f ./docker/docker-compose.yaml up -d ",
+    "dev": "ts-node-dev -r  tsconfig-paths/register --respawn --max-old-space-size=4076 ./index.ts",
+    "dev:docker-server": "npm run dev:docker && ts-node-dev -r tsconfig-paths/register --respawn ./index.ts",
+    "lint": "./node_modules/.bin/eslint",
+    "lint:fix": "./node_modules/.bin/eslint . --fix"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "express",
+    "ts",
+    "typescript",
+    "express-server"
+  ],
+  "author": {
+    "name": "Sarthak Jain",
+    "email": "contact.sarthakjain@gmail.com"
+  },
   "license": "ISC",
   "dependencies": {
-    "airtable": "^0.11.2",
     "cors": "^2.8.5",
-    "dotenv": "^16.0.0",
-    "express": "^4.17.3"
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "tsconfig-paths": "^4.0.0",
+    "winston": "^3.8.1"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.23",
+    "@types/winston": "^2.4.4",
+    "@typescript-eslint/eslint-plugin": "^5.30.3",
+    "@typescript-eslint/parser": "^5.17.0",
     "eslint": "^8.12.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.25.4"
+    "eslint-config-airbnb-typescript": "^16.2.0",
+    "eslint-plugin-import": "^2.25.3",
+    "ts-node": "^10.6.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.7.4"
   }
 }

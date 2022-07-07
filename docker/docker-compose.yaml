@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  postgres:
+    container_name: crossknot-api
+    image: postgres
+    environment:
+      - POSTGRES_USER=crossknot
+      - POSTGRES_DB=crossknot
+      - POSTGRES_PASSWORD=crossknot
+    volumes:
+      - crossknot-data:/var/lib/postressql/data 
+    ports:
+      - "5431:5432"
+  
+volumes:
+  crossknot-data:

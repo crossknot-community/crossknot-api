@@ -1,8 +1,8 @@
 import express from 'express'
-import airtableRoute from './airtable.js'
+import basicRoute from '@routes/basic'
 
 const router = express.Router()
 
-router.use('/airtable', airtableRoute)
+router.use('/basic', basicRoute)
 
 export default router
