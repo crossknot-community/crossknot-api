@@ -1,0 +1,101 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  email   String    @id
+  phone   BigInt?
+  name String
+  twitterProfile String?
+  linkedinProfile String?
+  githubprofile String?
+
+  spekaer Speakers?
+
+  @@map("users")
+}
+
+model Events {
+  id           String            @id
+  eventType   eventType
+  speakerEmail String
+  speakers     SpekersInEvents[]
+  sponsors SponsorsInEvents[]
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @default(now()) @updatedAt
+
+  @@map("events")
+}
+
+model Sponsors {
+  email     String   @id
+  pocEmail  String 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  events SponsorsInEvents[]
+  @@map("sponsors")
+}
+
+model SponsorsInEvents {
+  sponsorEmail String
+  sponsor      Sponsors @relation(fields: [sponsorEmail], references: [email])
+  eventId      String
+  events       Events   @relation(fields: [eventId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now()) @updatedAt
+
+  @@id([eventId, sponsorEmail])
+  @@map("sponsorsinevents")
+}
+
+model Speakers {
+  email     String            @id
+  user      Users             @relation(references: [email], fields: [email])
+  events    SpekersInEvents[]
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @default(now()) @updatedAt
+
+  @@map("speakers")
+}
+
+model SpekersInEvents {
+  speakerEmail String
+  speaker      Speakers @relation(fields: [speakerEmail], references: [email])
+  eventId      String
+  events       Events   @relation(fields: [eventId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now()) @updatedAt
+
+  @@id([eventId, speakerEmail])
+  @@map("spekersinevents")
+}
+
+model Projects {
+  id         String   @id
+  githubRepo String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+
+  @@map("projects")
+}
+
+enum userRole {
+  TEAM
+  ADMIN
+}
+
+enum eventType {
+  TWITTER_SPACE
+  DISCORD_SESSION
+  LIVE_SESSION
+  HACKATHON
+  MINI_EVENT
+}

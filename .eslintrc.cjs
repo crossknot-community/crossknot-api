@@ -4,11 +4,12 @@ module.exports = {
         node: true,
         jest: true,
     },
-    parser: '@typescript-eslint/parser',
     parserOptions: {
-        project: ['./tsconfig.json'],
+        project: './tsconfig.json',
         ecmaVersion: 2021,
+        
     },
+    parser: '@typescript-eslint/parser',
     extends: [
         'eslint:recommended',
         'airbnb-base',
@@ -24,7 +25,7 @@ module.exports = {
             {
                 ts: true,
                 js: true,
-                json: true
+                json: false
             },
         ],
         'no-underscore-dangle': 'off',

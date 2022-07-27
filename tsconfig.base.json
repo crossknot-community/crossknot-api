@@ -22,7 +22,7 @@
             "@helpers/*": ["./src/helpers/*"],
             "@lib/*": ["./src/lib/*"],
             "@factory/*" :["./src/models/factory/*"],
-            "@middleware/*": ["./src/middleware/*"],
+            "@middlewares/*": ["./src/middlewares/*"],
             "@services/*": ["./src/services/*"]
         },
         "typeRoots": ["./global.d.ts"]
