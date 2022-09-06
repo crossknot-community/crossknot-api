@@ -11,36 +11,39 @@ datasource db {
 }
 
 model Users {
-  email   String    @id
-  phone   BigInt?
-  name String
-  twitterProfile String?
+  email           String  @id
+  phone           BigInt?
+  name            String
+  twitterProfile  String?
   linkedinProfile String?
-  githubprofile String?
-
-  spekaer Speakers?
+  githubprofile   String?
+  titlle          String?
+  bio             String?
+  website         String?
+  speaker         Speakers?
 
   @@map("users")
 }
 
 model Events {
-  id           String            @id
-  eventType   eventType
-  speakerEmail String
+  id           String             @id
+  name         String
+  eventType    eventType
   speakers     SpekersInEvents[]
-  sponsors SponsorsInEvents[]
-  createdAt    DateTime          @default(now())
-  updatedAt    DateTime          @default(now()) @updatedAt
+  sponsors     SponsorsInEvents[]
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @default(now()) @updatedAt
 
   @@map("events")
 }
 
 model Sponsors {
-  email     String   @id
-  pocEmail  String 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-  events SponsorsInEvents[]
+  email     String             @id
+  pocEmail  String
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @default(now()) @updatedAt
+  events    SponsorsInEvents[]
+
   @@map("sponsors")
 }
 
